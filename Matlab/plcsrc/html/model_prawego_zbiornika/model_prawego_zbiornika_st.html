@@ -13,315 +13,172 @@
 </span><span><a class="LN" name="2">    2   </a><span class="CT"> *</span>
 </span><span><a class="LN" name="3">    3   </a><span class="CT"> * File: model_prawego_zbiornika.st</span>
 </span><span><a class="LN" name="4">    4   </a><span class="CT"> *</span>
-</span><span><a class="LN" name="5">    5   </a><span class="CT"> * IEC 61131-3 Structured Text (ST) code generated for subsystem "model_prawego_zbiornika/REGULATOR/FLC"</span>
+</span><span><a class="LN" name="5">    5   </a><span class="CT"> * IEC 61131-3 Structured Text (ST) code generated for subsystem "model_prawego_zbiornika/ADRC"</span>
 </span><span><a class="LN" name="6">    6   </a><span class="CT"> *</span>
 </span><span><a class="LN" name="7">    7   </a><span class="CT"> * Model name                      : model_prawego_zbiornika</span>
-</span><span><a class="LN" name="8">    8   </a><span class="CT"> * Model version                   : 1.14</span>
+</span><span><a class="LN" name="8">    8   </a><span class="CT"> * Model version                   : 1.20</span>
 </span><span><a class="LN" name="9">    9   </a><span class="CT"> * Model creator                   : kerif</span>
 </span><span><a class="LN" name="10">   10   </a><span class="CT"> * Model last modified by          : kerif</span>
-</span><span><a class="LN" name="11">   11   </a><span class="CT"> * Model last modified on          : Tue Jan 16 01:21:37 2024</span>
-</span><span><a class="LN" name="12">   12   </a><span class="CT"> * Model sample time               : 0s</span>
-</span><span><a class="LN" name="13">   13   </a><span class="CT"> * Subsystem name                  : model_prawego_zbiornika/REGULATOR/FLC</span>
+</span><span><a class="LN" name="11">   11   </a><span class="CT"> * Model last modified on          : Mon Mar 11 22:44:08 2024</span>
+</span><span><a class="LN" name="12">   12   </a><span class="CT"> * Model sample time               : 0.02s</span>
+</span><span><a class="LN" name="13">   13   </a><span class="CT"> * Subsystem name                  : model_prawego_zbiornika/ADRC</span>
 </span><span><a class="LN" name="14">   14   </a><span class="CT"> * Subsystem sample time           : 0.02s</span>
 </span><span><a class="LN" name="15">   15   </a><span class="CT"> * Simulink PLC Coder version      : 23.2 (R2023b) 01-Aug-2023</span>
-</span><span><a class="LN" name="16">   16   </a><span class="CT"> * ST code generated on            : Tue Jan 16 22:43:28 2024</span>
+</span><span><a class="LN" name="16">   16   </a><span class="CT"> * ST code generated on            : Tue Mar 12 11:35:33 2024</span>
 </span><span><a class="LN" name="17">   17   </a><span class="CT"> *</span>
 </span><span><a class="LN" name="18">   18   </a><span class="CT"> * Target IDE selection            : 3S CoDeSys 3.5</span>
 </span><span><a class="LN" name="19">   19   </a><span class="CT"> * Test Bench included             : No</span>
 </span><span><a class="LN" name="20">   20   </a><span class="CT"> *</span>
 </span><span><a class="LN" name="21">   21   </a><span class="CT"> *)</span>
-</span><span><a class="LN" name="22">   22   </a><span class="KW">FUNCTION_BLOCK</span> FLC
+</span><span><a class="LN" name="22">   22   </a><span class="KW">FUNCTION_BLOCK</span> ADRC
 </span><span><a class="LN" name="23">   23   </a><span class="KW">VAR_INPUT</span>
-</span><span><a class="LN" name="24">   24   </a>    Error: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="25">   25   </a>    Errorchange: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="26">   26   </a><span class="KW">END_VAR</span>
-</span><span><a class="LN" name="27">   27   </a><span class="KW">VAR_OUTPUT</span>
-</span><span><a class="LN" name="28">   28   </a>    out: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="29">   29   </a><span class="KW">END_VAR</span>
-</span><span><a class="LN" name="30">   30   </a><span class="KW">VAR</span>
-</span><span><a class="LN" name="31">   31   </a>    OutputSamplePoints_Value: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span> := -100.0,-98.0,-96.0,-94.0,-92.0,-90.0,-88.0,-86.0,-84.0,
-</span><span><a class="LN" name="32">   32   </a>        -82.0,-80.0,-78.0,-76.0,-74.0,-72.0,-70.0,-68.0,-66.0,-64.0,-62.0,-60.0,-58.0,-56.0,-54.0,-52.0,-50.0,-48.0,
-</span><span><a class="LN" name="33">   33   </a>        -46.0,-44.0,-42.0,-40.0,-38.0,-36.0,-34.0,-32.0,-30.0,-28.0,-26.0,-24.0,-22.0,-20.0,-18.0,-16.0,-14.0,-12.0,
-</span><span><a class="LN" name="34">   34   </a>        -10.0,-8.0,-6.0,-4.0,-2.0,0.0,2.0,4.0,6.0,8.0,10.0,12.0,14.0,16.0,18.0,20.0,22.0,24.0,26.0,28.0,30.0,32.0,
-</span><span><a class="LN" name="35">   35   </a>        34.0,36.0,38.0,40.0,42.0,44.0,46.0,48.0,50.0,52.0,54.0,56.0,58.0,60.0,62.0,64.0,66.0,68.0,70.0,72.0,74.0,
-</span><span><a class="LN" name="36">   36   </a>        76.0,78.0,80.0,82.0,84.0,86.0,88.0,90.0,92.0,94.0,96.0,98.0,100.0;
-</span><span><a class="LN" name="37">   37   </a>    m: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -18.4166666666667,-13.0,-7.58333333333333;
-</span><span><a class="LN" name="38">   38   </a>    b_l: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -11.9166666666667,-6.5,-0.694927032661571;
-</span><span><a class="LN" name="39">   39   </a>    k: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := 0.604166666666671,6.54166666666666,11.9583333333333;
-</span><span><a class="LN" name="40">   40   </a>    j: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := 7.58333333333333,13.0,18.4166666666667;
-</span><span><a class="LN" name="41">   41   </a>    i: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -0.894444444444444,-0.7,-0.505555555555556;
-</span><span><a class="LN" name="42">   42   </a>    h: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -0.661111111111111,-0.466666666666667,-0.272222222222222;
-</span><span><a class="LN" name="43">   43   </a>    g: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -0.427777777777778,-0.233333333333333,-0.0388888888888889;
-</span><span><a class="LN" name="44">   44   </a>    f: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -0.194444444444445,-5.55111512312578E-17,0.194444444444444;
-</span><span><a class="LN" name="45">   45   </a>    e: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := 0.0388888888888888,0.233333333333333,0.427777777777778;
-</span><span><a class="LN" name="46">   46   </a>    b_d: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := 0.272222222222222,0.466666666666667,0.661111111111111;
-</span><span><a class="LN" name="47">   47   </a>    c: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := 0.505555555555555,0.7,0.894444444444444;
-</span><span><a class="LN" name="48">   48   </a>    b: <span class="KW">ARRAY</span> [0..25] <span class="KW">OF</span> <span class="KW">SINT</span> := 1,2,5,4,4,4,4,4,4,4,3,6,7,4,4,4,4,1,2,3,5,6,7,4,4,4;
-</span><span><a class="LN" name="49">   49   </a>    b_h: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -127.777777777778,-100.0,-72.2222222222222;
-</span><span><a class="LN" name="50">   50   </a>    b_g: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -94.4444444444444,-66.6666666666667,-38.8888888888889;
-</span><span><a class="LN" name="51">   51   </a>    b_f: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -61.1111111111111,-33.3333333333333,-5.55555555555554;
-</span><span><a class="LN" name="52">   52   </a>    b_e: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := -27.7777777777778,1.4210854715202E-14,27.7777777777778;
-</span><span><a class="LN" name="53">   53   </a>    c_d: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := 5.55555555555557,33.3333333333333,61.1111111111111;
-</span><span><a class="LN" name="54">   54   </a>    b_c: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span> := 72.2222222222223,100.0,127.777777777778;
-</span><span><a class="LN" name="55">   55   </a>    b_b: <span class="KW">ARRAY</span> [0..12] <span class="KW">OF</span> <span class="KW">SINT</span> := 1,2,6,4,1,2,3,5,6,7,3,6,7;
-</span><span><a class="LN" name="56">   56   </a>    i0_trimf_n: trimf_n;
-</span><span><a class="LN" name="57">   57   </a><span class="KW">END_VAR</span>
-</span><span><a class="LN" name="58">   58   </a><span class="KW">VAR_TEMP</span>
-</span><span><a class="LN" name="59">   59   </a>    inputMFCache: <span class="KW">ARRAY</span> [0..13] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="60">   60   </a>    inputID: <span class="KW">DINT</span>;
-</span><span><a class="LN" name="61">   61   </a>    mfVal: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="62">   62   </a>    outputMFCache: <span class="KW">ARRAY</span> [0..706] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="63">   63   </a>    rtb_antecedentOutputs: <span class="KW">ARRAY</span> [0..12] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="64">   64   </a>    rtb_aggregatedOutputs: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="65">   65   </a>    rtb_defuzzifiedOutputs: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="66">   66   </a>    ruleID: <span class="KW">DINT</span>;
-</span><span><a class="LN" name="67">   67   </a>    tmp: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="68">   68   </a>    tmp_0: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="69">   69   </a>    tmp_1: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="70">   70   </a>    tmp_2: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="71">   71   </a>    tmp_3: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="72">   72   </a>    tmp_4: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="73">   73   </a>    tmp_5: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="74">   74   </a>    tmp_6: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="75">   75   </a>    c_rtb_TmpSignalConversionAt: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="76">   76   </a><span class="KW">END_VAR</span>
-</span><span><a class="LN" name="77">   77   </a><span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="78">   78   </a><span class="CT">(* Outputs for Atomic SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="79">   79   </a><span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Evaluate Rule Antecedents</i></font></a>' *)</span>
-</span><span><a class="LN" name="80">   80   </a><span class="CT">(* MATLAB Function 'Evaluate Rule Antecedents': '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579:1')" name="code2model"><font color="#117755"><i>&lt;S4&gt;:1</i></font></a>' *)</span>
-</span><span><a class="LN" name="81">   81   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579:1:4')" name="code2model"><font color="#117755"><i>&lt;S4&gt;:1:4</i></font></a>' if SimulateUsing==1 && coder.internal.canUseExtrinsic ... *)</span>
-</span><span><a class="LN" name="82">   82   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579:1:5')" name="code2model"><font color="#117755"><i>&lt;S4&gt;:1:5</i></font></a>'         && (isa(inputs,'double') || isa(inputs,'single')) *)</span>
-</span><span><a class="LN" name="83">   83   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579:1:32')" name="code2model"><font color="#117755"><i>&lt;S4&gt;:1:32</i></font></a>' else *)</span>
-</span><span><a class="LN" name="84">   84   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579:1:33')" name="code2model"><font color="#117755"><i>&lt;S4&gt;:1:33</i></font></a>' if fis.inputFuzzySetType==1 *)</span>
-</span><span><a class="LN" name="85">   85   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579:1:34')" name="code2model"><font color="#117755"><i>&lt;S4&gt;:1:34</i></font></a>' [antecedentOutputs,sumAntecedentOutputs] = ... *)</span>
-</span><span><a class="LN" name="86">   86   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579:1:35')" name="code2model"><font color="#117755"><i>&lt;S4&gt;:1:35</i></font></a>'             fuzzy.internal.codegen.evaluateRuleAntecedent(... *)</span>
-</span><span><a class="LN" name="87">   87   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579:1:36')" name="code2model"><font color="#117755"><i>&lt;S4&gt;:1:36</i></font></a>'             inputs,fis,diagnostics); *)</span>
-</span><span><a class="LN" name="88">   88   </a>rtb_defuzzifiedOutputs := 0.0;
-</span><span><a class="LN" name="89">   89   </a><span class="CT">(* End of Outputs for SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="90">   90   </a><span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="91">   91   </a><span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="92">   92   </a><span class="CT">(* Outputs for Atomic SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="93">   93   </a><span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Evaluate Rule Antecedents</i></font></a>' incorporates:</span>
-</span><span><a class="LN" name="94">   94   </a><span class="CT"> *  SignalConversion: '&lt;S4&gt;/TmpSignal ConversionAt SFunction Inport1' *)</span>
-</span><span><a class="LN" name="95">   95   </a>tmp[0] := -24.9166666666667;
-</span><span><a class="LN" name="96">   96   </a>tmp[1] := -19.5;
-</span><span><a class="LN" name="97">   97   </a>tmp[2] := -14.0833333333333;
-</span><span><a class="LN" name="98">   98   </a>inputMFCache[0] := trimf(x := Error, params := tmp);
-</span><span><a class="LN" name="99">   99   </a>inputMFCache[1] := trimf(x := Error, params := m);
-</span><span><a class="LN" name="100">  100   </a>inputMFCache[2] := trimf(x := Error, params := b_l);
-</span><span><a class="LN" name="101">  101   </a><span class="CT">(* End of Outputs for SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="102">  102   </a><span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="103">  103   </a><span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="104">  104   </a><span class="CT">(* Outputs for Atomic SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="105">  105   </a><span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Evaluate Rule Antecedents</i></font></a>' incorporates:</span>
-</span><span><a class="LN" name="106">  106   </a><span class="CT"> *  SignalConversion: '&lt;S4&gt;/TmpSignal ConversionAt SFunction Inport1' *)</span>
-</span><span><a class="LN" name="107">  107   </a>tmp[0] := -5.41666666666667;
-</span><span><a class="LN" name="108">  108   </a>tmp[1] := 0.0;
-</span><span><a class="LN" name="109">  109   </a>tmp[2] := 5.41666666666667;
-</span><span><a class="LN" name="110">  110   </a>inputMFCache[3] := trimf(x := Error, params := tmp);
-</span><span><a class="LN" name="111">  111   </a>inputMFCache[4] := trimf(x := Error, params := k);
-</span><span><a class="LN" name="112">  112   </a>inputMFCache[5] := trimf(x := Error, params := j);
-</span><span><a class="LN" name="113">  113   </a><span class="CT">(* End of Outputs for SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="114">  114   </a><span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="115">  115   </a><span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="116">  116   </a><span class="CT">(* Outputs for Atomic SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="117">  117   </a><span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Evaluate Rule Antecedents</i></font></a>' incorporates:</span>
-</span><span><a class="LN" name="118">  118   </a><span class="CT"> *  SignalConversion: '&lt;S4&gt;/TmpSignal ConversionAt SFunction Inport1' *)</span>
-</span><span><a class="LN" name="119">  119   </a>tmp[0] := 14.0833333333333;
-</span><span><a class="LN" name="120">  120   </a>tmp[1] := 19.5;
-</span><span><a class="LN" name="121">  121   </a>tmp[2] := 24.9166666666667;
-</span><span><a class="LN" name="122">  122   </a>inputMFCache[6] := trimf(x := Error, params := tmp);
-</span><span><a class="LN" name="123">  123   </a>inputMFCache[7] := trimf(x := Errorchange, params := i);
-</span><span><a class="LN" name="124">  124   </a>inputMFCache[8] := trimf(x := Errorchange, params := h);
-</span><span><a class="LN" name="125">  125   </a>inputMFCache[9] := trimf(x := Errorchange, params := g);
-</span><span><a class="LN" name="126">  126   </a>inputMFCache[10] := trimf(x := Errorchange, params := f);
-</span><span><a class="LN" name="127">  127   </a>inputMFCache[11] := trimf(x := Errorchange, params := e);
-</span><span><a class="LN" name="128">  128   </a>inputMFCache[12] := trimf(x := Errorchange, params := b_d);
-</span><span><a class="LN" name="129">  129   </a>inputMFCache[13] := trimf(x := Errorchange, params := c);
-</span><span><a class="LN" name="130">  130   </a><span class="CT">(* End of Outputs for SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="131">  131   </a><span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="132">  132   </a><span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="133">  133   </a><span class="CT">(* Outputs for Atomic SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="134">  134   </a><span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Evaluate Rule Antecedents</i></font></a>' *)</span>
-</span><span><a class="LN" name="135">  135   </a><span class="KW">FOR</span> ruleID := 0 <span class="KW">TO</span> 12 <span class="KW">DO</span> 
-</span><span><a class="LN" name="136">  136   </a>    c_rtb_TmpSignalConversionAt := inputMFCache[SINT_TO_DINT(b[ruleID]) - 1];
-</span><span><a class="LN" name="137">  137   </a>    <span class="KW">IF</span> c_rtb_TmpSignalConversionAt &lt; 1.0 <span class="KW">THEN</span> 
-</span><span><a class="LN" name="138">  138   </a>        mfVal := c_rtb_TmpSignalConversionAt;
-</span><span><a class="LN" name="139">  139   </a>    <span class="KW">ELSE</span> 
-</span><span><a class="LN" name="140">  140   </a>        mfVal := 1.0;
-</span><span><a class="LN" name="141">  141   </a>    <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="142">  142   </a>    c_rtb_TmpSignalConversionAt := inputMFCache[SINT_TO_DINT(b[ruleID + 13]) + 6];
-</span><span><a class="LN" name="143">  143   </a>    <span class="KW">IF</span> mfVal &gt; c_rtb_TmpSignalConversionAt <span class="KW">THEN</span> 
-</span><span><a class="LN" name="144">  144   </a>        mfVal := c_rtb_TmpSignalConversionAt;
-</span><span><a class="LN" name="145">  145   </a>    <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="146">  146   </a>    rtb_antecedentOutputs[ruleID] := mfVal;
-</span><span><a class="LN" name="147">  147   </a>    rtb_defuzzifiedOutputs := rtb_defuzzifiedOutputs + mfVal;
-</span><span><a class="LN" name="148">  148   </a><span class="KW">END_FOR</span>;
-</span><span><a class="LN" name="149">  149   </a><span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Evaluate Rule Consequents</i></font></a>' incorporates:</span>
-</span><span><a class="LN" name="150">  150   </a><span class="CT"> *  Constant: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:584')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Output Sample Points</i></font></a>' *)</span>
-</span><span><a class="LN" name="151">  151   </a><span class="CT">(* MATLAB Function 'Evaluate Rule Consequents': '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580:1')" name="code2model"><font color="#117755"><i>&lt;S5&gt;:1</i></font></a>' *)</span>
-</span><span><a class="LN" name="152">  152   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580:1:4')" name="code2model"><font color="#117755"><i>&lt;S5&gt;:1:4</i></font></a>' if SimulateUsing==1 && coder.internal.canUseExtrinsic ... *)</span>
-</span><span><a class="LN" name="153">  153   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580:1:5')" name="code2model"><font color="#117755"><i>&lt;S5&gt;:1:5</i></font></a>'         && (isa(inputs,'double') || isa(inputs,'single')) *)</span>
-</span><span><a class="LN" name="154">  154   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580:1:55')" name="code2model"><font color="#117755"><i>&lt;S5&gt;:1:55</i></font></a>' else *)</span>
-</span><span><a class="LN" name="155">  155   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580:1:56')" name="code2model"><font color="#117755"><i>&lt;S5&gt;:1:56</i></font></a>' if fis.inputFuzzySetType==1 *)</span>
-</span><span><a class="LN" name="156">  156   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580:1:57')" name="code2model"><font color="#117755"><i>&lt;S5&gt;:1:57</i></font></a>' if strcmp(char(fis.type),'mamdani') *)</span>
-</span><span><a class="LN" name="157">  157   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580:1:58')" name="code2model"><font color="#117755"><i>&lt;S5&gt;:1:58</i></font></a>' aggregatedOutputs = ... *)</span>
-</span><span><a class="LN" name="158">  158   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580:1:59')" name="code2model"><font color="#117755"><i>&lt;S5&gt;:1:59</i></font></a>'                 fuzzy.internal.codegen.evaluateRuleConsequentForMamdaniFIS(... *)</span>
-</span><span><a class="LN" name="159">  159   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580:1:60')" name="code2model"><font color="#117755"><i>&lt;S5&gt;:1:60</i></font></a>'                 antecedentOutputs,fis,samplePoints); *)</span>
-</span><span><a class="LN" name="160">  160   </a>i0_trimf_n(x := OutputSamplePoints_Value, params := b_h);
-</span><span><a class="LN" name="161">  161   </a>tmp_0 := i0_trimf_n.y;
-</span><span><a class="LN" name="162">  162   </a>i0_trimf_n(x := OutputSamplePoints_Value, params := b_g);
-</span><span><a class="LN" name="163">  163   </a>tmp_1 := i0_trimf_n.y;
-</span><span><a class="LN" name="164">  164   </a>i0_trimf_n(x := OutputSamplePoints_Value, params := b_f);
-</span><span><a class="LN" name="165">  165   </a>tmp_2 := i0_trimf_n.y;
-</span><span><a class="LN" name="166">  166   </a>i0_trimf_n(x := OutputSamplePoints_Value, params := b_e);
-</span><span><a class="LN" name="167">  167   </a>tmp_3 := i0_trimf_n.y;
-</span><span><a class="LN" name="168">  168   </a>i0_trimf_n(x := OutputSamplePoints_Value, params := c_d);
-</span><span><a class="LN" name="169">  169   </a>tmp_4 := i0_trimf_n.y;
-</span><span><a class="LN" name="170">  170   </a><span class="CT">(* End of Outputs for SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="171">  171   </a><span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="172">  172   </a><span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="173">  173   </a><span class="CT">(* Outputs for Atomic SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="174">  174   </a><span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Evaluate Rule Consequents</i></font></a>' incorporates:</span>
-</span><span><a class="LN" name="175">  175   </a><span class="CT"> *  Constant: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:584')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Output Sample Points</i></font></a>' *)</span>
-</span><span><a class="LN" name="176">  176   </a>tmp[0] := 38.8888888888889;
-</span><span><a class="LN" name="177">  177   </a>tmp[1] := 66.6666666666667;
-</span><span><a class="LN" name="178">  178   </a>tmp[2] := 94.4444444444445;
-</span><span><a class="LN" name="179">  179   </a>i0_trimf_n(x := OutputSamplePoints_Value, params := tmp);
-</span><span><a class="LN" name="180">  180   </a>tmp_5 := i0_trimf_n.y;
-</span><span><a class="LN" name="181">  181   </a>i0_trimf_n(x := OutputSamplePoints_Value, params := b_c);
-</span><span><a class="LN" name="182">  182   </a>tmp_6 := i0_trimf_n.y;
-</span><span><a class="LN" name="183">  183   </a><span class="CT">(* End of Outputs for SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="184">  184   </a><span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="185">  185   </a><span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="186">  186   </a><span class="CT">(* Outputs for Atomic SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="187">  187   </a><span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:580')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Evaluate Rule Consequents</i></font></a>' *)</span>
-</span><span><a class="LN" name="188">  188   </a><span class="KW">FOR</span> ruleID := 0 <span class="KW">TO</span> 100 <span class="KW">DO</span> 
-</span><span><a class="LN" name="189">  189   </a>    rtb_aggregatedOutputs[ruleID] := 0.0;
-</span><span><a class="LN" name="190">  190   </a>    outputMFCache[7 * ruleID] := tmp_0[ruleID];
-</span><span><a class="LN" name="191">  191   </a>    outputMFCache[(7 * ruleID) + 1] := tmp_1[ruleID];
-</span><span><a class="LN" name="192">  192   </a>    outputMFCache[(7 * ruleID) + 2] := tmp_2[ruleID];
-</span><span><a class="LN" name="193">  193   </a>    outputMFCache[(7 * ruleID) + 3] := tmp_3[ruleID];
-</span><span><a class="LN" name="194">  194   </a>    outputMFCache[(7 * ruleID) + 4] := tmp_4[ruleID];
-</span><span><a class="LN" name="195">  195   </a>    outputMFCache[(7 * ruleID) + 5] := tmp_5[ruleID];
-</span><span><a class="LN" name="196">  196   </a>    outputMFCache[(7 * ruleID) + 6] := tmp_6[ruleID];
-</span><span><a class="LN" name="197">  197   </a><span class="KW">END_FOR</span>;
-</span><span><a class="LN" name="198">  198   </a><span class="KW">FOR</span> ruleID := 0 <span class="KW">TO</span> 12 <span class="KW">DO</span> 
-</span><span><a class="LN" name="199">  199   </a>    c_rtb_TmpSignalConversionAt := rtb_antecedentOutputs[ruleID];
-</span><span><a class="LN" name="200">  200   </a>    <span class="KW">FOR</span> inputID := 0 <span class="KW">TO</span> 100 <span class="KW">DO</span> 
-</span><span><a class="LN" name="201">  201   </a>        mfVal := outputMFCache[((7 * inputID) + SINT_TO_DINT(b_b[ruleID])) - 1];
-</span><span><a class="LN" name="202">  202   </a>        <span class="KW">IF</span> mfVal &gt; c_rtb_TmpSignalConversionAt <span class="KW">THEN</span> 
-</span><span><a class="LN" name="203">  203   </a>            mfVal := c_rtb_TmpSignalConversionAt;
-</span><span><a class="LN" name="204">  204   </a>        <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="205">  205   </a>        <span class="KW">IF</span> rtb_aggregatedOutputs[inputID] &lt; mfVal <span class="KW">THEN</span> 
-</span><span><a class="LN" name="206">  206   </a>            rtb_aggregatedOutputs[inputID] := mfVal;
-</span><span><a class="LN" name="207">  207   </a>        <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="208">  208   </a>    <span class="KW">END_FOR</span>;
-</span><span><a class="LN" name="209">  209   </a><span class="KW">END_FOR</span>;
-</span><span><a class="LN" name="210">  210   </a><span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Defuzzify Outputs</i></font></a>' incorporates:</span>
-</span><span><a class="LN" name="211">  211   </a><span class="CT"> *  Constant: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:584')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Output Sample Points</i></font></a>'</span>
-</span><span><a class="LN" name="212">  212   </a><span class="CT"> *  MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:579')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Evaluate Rule Antecedents</i></font></a>' *)</span>
-</span><span><a class="LN" name="213">  213   </a><span class="CT">(* MATLAB Function 'Defuzzify Outputs': '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1</i></font></a>' *)</span>
-</span><span><a class="LN" name="214">  214   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1:4')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1:4</i></font></a>' if SimulateUsing==1 && coder.internal.canUseExtrinsic ... *)</span>
-</span><span><a class="LN" name="215">  215   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1:5')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1:5</i></font></a>'         && (isa(aggregatedOutputs,'double') || isa(aggregatedOutputs,'single')) *)</span>
-</span><span><a class="LN" name="216">  216   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1:63')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1:63</i></font></a>' else *)</span>
-</span><span><a class="LN" name="217">  217   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1:64')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1:64</i></font></a>' if fis.inputFuzzySetType==1 *)</span>
-</span><span><a class="LN" name="218">  218   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1:65')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1:65</i></font></a>' if isequal(fis.type,uint8('mamdani')) *)</span>
-</span><span><a class="LN" name="219">  219   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1:66')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1:66</i></font></a>' defuzzifiedOutputs = ... *)</span>
-</span><span><a class="LN" name="220">  220   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1:67')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1:67</i></font></a>'                 fuzzy.internal.codegen.applyMamdaniDefuzzificationMethod(... *)</span>
-</span><span><a class="LN" name="221">  221   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1:68')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1:68</i></font></a>'                 samplePoints,sumAntecedentOutputs,aggregatedOutputs, ... *)</span>
-</span><span><a class="LN" name="222">  222   </a><span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581:1:69')" name="code2model"><font color="#117755"><i>&lt;S3&gt;:1:69</i></font></a>'                 fis,diagnostics); *)</span>
-</span><span><a class="LN" name="223">  223   </a><span class="KW">IF</span> rtb_defuzzifiedOutputs = 0.0 <span class="KW">THEN</span> 
-</span><span><a class="LN" name="224">  224   </a>    <span class="CT">(* Outport: '&lt;Root&gt;/out' *)</span>
-</span><span><a class="LN" name="225">  225   </a>    out := 0.0;
-</span><span><a class="LN" name="226">  226   </a><span class="KW">ELSE</span> 
-</span><span><a class="LN" name="227">  227   </a>    rtb_defuzzifiedOutputs := 0.0;
-</span><span><a class="LN" name="228">  228   </a>    mfVal := 0.0;
-</span><span><a class="LN" name="229">  229   </a>    <span class="KW">FOR</span> ruleID := 0 <span class="KW">TO</span> 100 <span class="KW">DO</span> 
-</span><span><a class="LN" name="230">  230   </a>        mfVal := mfVal + rtb_aggregatedOutputs[ruleID];
-</span><span><a class="LN" name="231">  231   </a>    <span class="KW">END_FOR</span>;
-</span><span><a class="LN" name="232">  232   </a>    <span class="KW">IF</span> mfVal = 0.0 <span class="KW">THEN</span> 
-</span><span><a class="LN" name="233">  233   </a>        <span class="CT">(* Outport: '&lt;Root&gt;/out' *)</span>
-</span><span><a class="LN" name="234">  234   </a>        out := 0.0;
-</span><span><a class="LN" name="235">  235   </a>    <span class="KW">ELSE</span> 
-</span><span><a class="LN" name="236">  236   </a>        <span class="KW">FOR</span> ruleID := 0 <span class="KW">TO</span> 100 <span class="KW">DO</span> 
-</span><span><a class="LN" name="237">  237   </a>            rtb_defuzzifiedOutputs := (OutputSamplePoints_Value[ruleID] * rtb_aggregatedOutputs[ruleID]) + rtb_defuzzifiedOutputs;
-</span><span><a class="LN" name="238">  238   </a>        <span class="KW">END_FOR</span>;
-</span><span><a class="LN" name="239">  239   </a>        <span class="CT">(* Outport: '&lt;Root&gt;/out' incorporates:</span>
-</span><span><a class="LN" name="240">  240   </a><span class="CT">         *  Constant: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:584')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Output Sample Points</i></font></a>' *)</span>
-</span><span><a class="LN" name="241">  241   </a>        out := (1.0 / mfVal) * rtb_defuzzifiedOutputs;
-</span><span><a class="LN" name="242">  242   </a>    <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="243">  243   </a><span class="KW">END_IF</span>;
-</span><span><a class="LN" name="244">  244   </a><span class="CT">(* End of MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38:581')" name="code2model"><font color="#117755"><i>&lt;S2&gt;/Defuzzify Outputs</i></font></a>' *)</span>
-</span><span><a class="LN" name="245">  245   </a><span class="CT">(* End of Outputs for SubSystem: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:38')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Fuzzy Logic  Controller</i></font></a>' *)</span>
-</span><span><a class="LN" name="246">  246   </a><span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/FLC' *)</span>
-</span><span><a class="LN" name="247">  247   </a><span class="KW">END_FUNCTION_BLOCK</span>
-</span><span><a class="LN" name="248">  248   </a><span class="KW">FUNCTION</span> trimf: <span class="KW">LREAL</span>
-</span><span><a class="LN" name="249">  249   </a><span class="KW">VAR_INPUT</span>
-</span><span><a class="LN" name="250">  250   </a>    x: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="251">  251   </a>    params: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="252">  252   </a><span class="KW">END_VAR</span>
-</span><span><a class="LN" name="253">  253   </a>trimf := 0.0;
-</span><span><a class="LN" name="254">  254   </a><span class="KW">IF</span> params[0] &lt;&gt; params[1] <span class="KW">THEN</span> 
-</span><span><a class="LN" name="255">  255   </a>    <span class="KW">IF</span> params[0] &lt; x <span class="KW">THEN</span> 
-</span><span><a class="LN" name="256">  256   </a>        <span class="KW">IF</span> x &lt; params[1] <span class="KW">THEN</span> 
-</span><span><a class="LN" name="257">  257   </a>            trimf := (1.0 / (params[1] - params[0])) * (x - params[0]);
-</span><span><a class="LN" name="258">  258   </a>        <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="259">  259   </a>    <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="260">  260   </a><span class="KW">END_IF</span>;
-</span><span><a class="LN" name="261">  261   </a><span class="KW">IF</span> params[1] &lt;&gt; params[2] <span class="KW">THEN</span> 
-</span><span><a class="LN" name="262">  262   </a>    <span class="KW">IF</span> params[1] &lt; x <span class="KW">THEN</span> 
-</span><span><a class="LN" name="263">  263   </a>        <span class="KW">IF</span> x &lt; params[2] <span class="KW">THEN</span> 
-</span><span><a class="LN" name="264">  264   </a>            trimf := (1.0 / (params[2] - params[1])) * (params[2] - x);
-</span><span><a class="LN" name="265">  265   </a>        <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="266">  266   </a>    <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="267">  267   </a><span class="KW">END_IF</span>;
-</span><span><a class="LN" name="268">  268   </a><span class="KW">IF</span> x = params[1] <span class="KW">THEN</span> 
-</span><span><a class="LN" name="269">  269   </a>    trimf := 1.0;
-</span><span><a class="LN" name="270">  270   </a><span class="KW">END_IF</span>;
-</span><span><a class="LN" name="271">  271   </a><span class="KW">END_FUNCTION</span>
-</span><span><a class="LN" name="272">  272   </a><span class="KW">FUNCTION_BLOCK</span> trimf_n
-</span><span><a class="LN" name="273">  273   </a><span class="KW">VAR_INPUT</span>
-</span><span><a class="LN" name="274">  274   </a>    x: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="275">  275   </a>    params: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="276">  276   </a><span class="KW">END_VAR</span>
-</span><span><a class="LN" name="277">  277   </a><span class="KW">VAR_OUTPUT</span>
-</span><span><a class="LN" name="278">  278   </a>    y: <span class="KW">ARRAY</span> [0..100] <span class="KW">OF</span> <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="279">  279   </a><span class="KW">END_VAR</span>
-</span><span><a class="LN" name="280">  280   </a><span class="KW">VAR_TEMP</span>
-</span><span><a class="LN" name="281">  281   </a>    a: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="282">  282   </a>    b: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="283">  283   </a>    c: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="284">  284   </a>    i: <span class="KW">DINT</span>;
-</span><span><a class="LN" name="285">  285   </a>    x_0: <span class="KW">LREAL</span>;
-</span><span><a class="LN" name="286">  286   </a><span class="KW">END_VAR</span>
-</span><span><a class="LN" name="287">  287   </a>a := params[0];
-</span><span><a class="LN" name="288">  288   </a>b := params[1];
-</span><span><a class="LN" name="289">  289   </a>c := params[2];
-</span><span><a class="LN" name="290">  290   </a><span class="KW">FOR</span> i := 0 <span class="KW">TO</span> 100 <span class="KW">DO</span> 
-</span><span><a class="LN" name="291">  291   </a>    y[i] := 0.0;
-</span><span><a class="LN" name="292">  292   </a>    <span class="KW">IF</span> a &lt;&gt; b <span class="KW">THEN</span> 
-</span><span><a class="LN" name="293">  293   </a>        x_0 := x[i];
-</span><span><a class="LN" name="294">  294   </a>        <span class="KW">IF</span> a &lt; x_0 <span class="KW">THEN</span> 
-</span><span><a class="LN" name="295">  295   </a>            <span class="KW">IF</span> x_0 &lt; b <span class="KW">THEN</span> 
-</span><span><a class="LN" name="296">  296   </a>                y[i] := (1.0 / (b - a)) * (x_0 - a);
-</span><span><a class="LN" name="297">  297   </a>            <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="298">  298   </a>        <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="299">  299   </a>    <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="300">  300   </a>    <span class="KW">IF</span> b &lt;&gt; c <span class="KW">THEN</span> 
-</span><span><a class="LN" name="301">  301   </a>        x_0 := x[i];
-</span><span><a class="LN" name="302">  302   </a>        <span class="KW">IF</span> b &lt; x_0 <span class="KW">THEN</span> 
-</span><span><a class="LN" name="303">  303   </a>            <span class="KW">IF</span> x_0 &lt; c <span class="KW">THEN</span> 
-</span><span><a class="LN" name="304">  304   </a>                y[i] := (1.0 / (c - b)) * (c - x_0);
-</span><span><a class="LN" name="305">  305   </a>            <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="306">  306   </a>        <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="307">  307   </a>    <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="308">  308   </a>    <span class="KW">IF</span> x[i] = b <span class="KW">THEN</span> 
-</span><span><a class="LN" name="309">  309   </a>        y[i] := 1.0;
-</span><span><a class="LN" name="310">  310   </a>    <span class="KW">END_IF</span>;
-</span><span><a class="LN" name="311">  311   </a><span class="KW">END_FOR</span>;
-</span><span><a class="LN" name="312">  312   </a><span class="KW">END_FUNCTION_BLOCK</span>
-</span><span><a class="LN" name="313">  313   </a>
+</span><span><a class="LN" name="24">   24   </a>    ssMethodType: <span class="KW">SINT</span>;
+</span><span><a class="LN" name="25">   25   </a>    Ref: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="26">   26   </a>    fdbck: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="27">   27   </a>    b: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="28">   28   </a>    obs_band: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="29">   29   </a>    ctrl_band: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="30">   30   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="31">   31   </a><span class="KW">VAR_OUTPUT</span>
+</span><span><a class="LN" name="32">   32   </a>    y: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="33">   33   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="34">   34   </a><span class="KW">VAR</span>
+</span><span><a class="LN" name="35">   35   </a>    e_DiscreteTimeIntegrator_DS: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="36">   36   </a>    b_a: <span class="KW">ARRAY</span> [0..8] <span class="KW">OF</span> <span class="KW">SINT</span> := 0,0,0,1,0,0,0,1,0;
+</span><span><a class="LN" name="37">   37   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="38">   38   </a><span class="KW">VAR_TEMP</span>
+</span><span><a class="LN" name="39">   39   </a>    usedInputGain: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="40">   40   </a>    b_controllerBandwidth: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="41">   41   </a>    b_k: <span class="KW">DINT</span>;
+</span><span><a class="LN" name="42">   42   </a>    b_observerBandwidth: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="43">   43   </a>    c: <span class="KW">ARRAY</span> [0..3] <span class="KW">OF</span> <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="44">   44   </a>    a: <span class="KW">ARRAY</span> [0..2] <span class="KW">OF</span> <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="45">   45   </a>    c_DiscreteTimeIntegrator_DS: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="46">   46   </a>    d_DiscreteTimeIntegrator_DS: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="47">   47   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="48">   48   </a><span class="KW">CASE</span> ssMethodType <span class="KW">OF</span>
+</span><span><a class="LN" name="49">   49   </a>    SS_INITIALIZE: 
+</span><span><a class="LN" name="50">   50   </a>        <span class="CT">(* SystemInitialize for Atomic SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="51">   51   </a>        <span class="CT">(* InitializeConditions for DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>' *)</span>
+</span><span><a class="LN" name="52">   52   </a>        e_DiscreteTimeIntegrator_DS[0] := 0.0;
+</span><span><a class="LN" name="53">   53   </a>        e_DiscreteTimeIntegrator_DS[1] := 0.0;
+</span><span><a class="LN" name="54">   54   </a>        e_DiscreteTimeIntegrator_DS[2] := 0.0;
+</span><span><a class="LN" name="55">   55   </a>        <span class="CT">(* End of SystemInitialize for SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="56">   56   </a>    SS_STEP: 
+</span><span><a class="LN" name="57">   57   </a>        <span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="58">   58   </a>        <span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35')" name="code2model"><font color="#117755"><i>&lt;S5&gt;/Extended state feedback robust controller</i></font></a>' incorporates:</span>
+</span><span><a class="LN" name="59">   59   </a><span class="CT">         *  DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>' *)</span>
+</span><span><a class="LN" name="60">   60   </a>        <span class="CT">(* MATLAB Function 'ADRC/ADRC controller/State feedback robust controller/Extended state feedback robust controller': '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1</i></font></a>' *)</span>
+</span><span><a class="LN" name="61">   61   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:8')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:8</i></font></a>' usedInputGain = evaluateSource(inputGainParameter, externalInputGainParameter); *)</span>
+</span><span><a class="LN" name="62">   62   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:17')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:17</i></font></a>' if(external == 0) *)</span>
+</span><span><a class="LN" name="63">   63   </a>        <span class="KW">IF</span> b = 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="64">   64   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:18')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:18</i></font></a>' output = internal; *)</span>
+</span><span><a class="LN" name="65">   65   </a>            usedInputGain := 0.005862;
+</span><span><a class="LN" name="66">   66   </a>        <span class="KW">ELSE</span> 
+</span><span><a class="LN" name="67">   67   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:19')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:19</i></font></a>' else *)</span>
+</span><span><a class="LN" name="68">   68   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:20')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:20</i></font></a>' output = external; *)</span>
+</span><span><a class="LN" name="69">   69   </a>            usedInputGain := b;
+</span><span><a class="LN" name="70">   70   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="71">   71   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:9')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:9</i></font></a>' usedControllerBandwidth = evaluateSource(controllerBandwidth, externalControllerBandwidth); *)</span>
+</span><span><a class="LN" name="72">   72   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:17')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:17</i></font></a>' if(external == 0) *)</span>
+</span><span><a class="LN" name="73">   73   </a>        <span class="KW">IF</span> ctrl_band = 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="74">   74   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:18')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:18</i></font></a>' output = internal; *)</span>
+</span><span><a class="LN" name="75">   75   </a>            b_controllerBandwidth := 0.5;
+</span><span><a class="LN" name="76">   76   </a>        <span class="KW">ELSE</span> 
+</span><span><a class="LN" name="77">   77   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:19')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:19</i></font></a>' else *)</span>
+</span><span><a class="LN" name="78">   78   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:20')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:20</i></font></a>' output = external; *)</span>
+</span><span><a class="LN" name="79">   79   </a>            b_controllerBandwidth := ctrl_band;
+</span><span><a class="LN" name="80">   80   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="81">   81   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:10')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:10</i></font></a>' K = calculateControllerGain(usedControllerBandwidth, dynamicsOrder); *)</span>
+</span><span><a class="LN" name="82">   82   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:25')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:25</i></font></a>' extendedControllerGain = poly(-controllerBandwidth * ones(1, dynamicsOrder)); *)</span>
+</span><span><a class="LN" name="83">   83   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:26')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:26</i></font></a>' controllerGain = flip(extendedControllerGain(2:end)); *)</span>
+</span><span><a class="LN" name="84">   84   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:12')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:12</i></font></a>' controlSignal = 1/usedInputGain * (estimatedExtendedState(end) +... *)</span>
+</span><span><a class="LN" name="85">   85   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35:1:13')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:13</i></font></a>'             K * estimatedExtendedState(1:end-1)); *)</span>
+</span><span><a class="LN" name="86">   86   </a>        y := ((((b_controllerBandwidth * b_controllerBandwidth) * e_DiscreteTimeIntegrator_DS[0]) + ((b_controllerBandwidth - ( -b_controllerBandwidth)) * e_DiscreteTimeIntegrator_DS[1])) + e_DiscreteTimeIntegrator_DS[2]) * (1.0 / usedInputGain);
+</span><span><a class="LN" name="87">   87   </a>        <span class="CT">(* End of MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:35')" name="code2model"><font color="#117755"><i>&lt;S5&gt;/Extended state feedback robust controller</i></font></a>' *)</span>
+</span><span><a class="LN" name="88">   88   </a>        
+</span><span><a class="LN" name="89">   89   </a>        <span class="CT">(* Saturate: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:107')" name="code2model"><font color="#117755"><i>&lt;S13&gt;/Saturation</i></font></a>' *)</span>
+</span><span><a class="LN" name="90">   90   </a>        <span class="KW">IF</span> y &gt; 100.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="91">   91   </a>            y := 100.0;
+</span><span><a class="LN" name="92">   92   </a>        <span class="KW">ELSIF</span> y &lt; 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="93">   93   </a>            y := 0.0;
+</span><span><a class="LN" name="94">   94   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="95">   95   </a>        <span class="CT">(* End of Saturate: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:107')" name="code2model"><font color="#117755"><i>&lt;S13&gt;/Saturation</i></font></a>' *)</span>
+</span><span><a class="LN" name="96">   96   </a>        
+</span><span><a class="LN" name="97">   97   </a>        <span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Linear extended state observer</i></font></a>' incorporates:</span>
+</span><span><a class="LN" name="98">   98   </a><span class="CT">         *  DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>'</span>
+</span><span><a class="LN" name="99">   99   </a><span class="CT">         *  Sum: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:92')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Sum</i></font></a>' *)</span>
+</span><span><a class="LN" name="100">  100   </a>        <span class="CT">(* MATLAB Function 'ADRC/ADRC controller/Linear extended state observer/Linear extended state observer': '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1</i></font></a>' *)</span>
+</span><span><a class="LN" name="101">  101   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:10')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:10</i></font></a>' usedInputGain = evaluateSource(inputGainParameter, externalInputGainParameter); *)</span>
+</span><span><a class="LN" name="102">  102   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:22')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:22</i></font></a>' if(external == 0) *)</span>
+</span><span><a class="LN" name="103">  103   </a>        <span class="KW">IF</span> b = 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="104">  104   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:23')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:23</i></font></a>' output = internal; *)</span>
+</span><span><a class="LN" name="105">  105   </a>            b_controllerBandwidth := 0.005862;
+</span><span><a class="LN" name="106">  106   </a>        <span class="KW">ELSE</span> 
+</span><span><a class="LN" name="107">  107   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:24')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:24</i></font></a>' else *)</span>
+</span><span><a class="LN" name="108">  108   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:25')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:25</i></font></a>' output = external; *)</span>
+</span><span><a class="LN" name="109">  109   </a>            b_controllerBandwidth := b;
+</span><span><a class="LN" name="110">  110   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="111">  111   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:11')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:11</i></font></a>' usedObserverBandwidth = evaluateSource(observerBandwidth, externalObserverBandwidth); *)</span>
+</span><span><a class="LN" name="112">  112   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:22')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:22</i></font></a>' if(external == 0) *)</span>
+</span><span><a class="LN" name="113">  113   </a>        <span class="KW">IF</span> obs_band = 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="114">  114   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:23')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:23</i></font></a>' output = internal; *)</span>
+</span><span><a class="LN" name="115">  115   </a>            b_observerBandwidth := 3.0;
+</span><span><a class="LN" name="116">  116   </a>        <span class="KW">ELSE</span> 
+</span><span><a class="LN" name="117">  117   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:24')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:24</i></font></a>' else *)</span>
+</span><span><a class="LN" name="118">  118   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:25')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:25</i></font></a>' output = external; *)</span>
+</span><span><a class="LN" name="119">  119   </a>            b_observerBandwidth := obs_band;
+</span><span><a class="LN" name="120">  120   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="121">  121   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:12')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:12</i></font></a>' A = calculateObserverStateMatrix(dynamicsOrder); *)</span>
+</span><span><a class="LN" name="122">  122   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:13')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:13</i></font></a>' B = calculateObserverInputMatrix(usedInputGain, dynamicsOrder); *)</span>
+</span><span><a class="LN" name="123">  123   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:35')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:35</i></font></a>' observerInputMatrix = [zeros(dynamicsOrder-1,1); -inputGainParameter; 0]; *)</span>
+</span><span><a class="LN" name="124">  124   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:14')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:14</i></font></a>' L = calculateObserverGainVector(usedObserverBandwidth, dynamicsOrder); *)</span>
+</span><span><a class="LN" name="125">  125   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:39')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:39</i></font></a>' extendedGainVector = poly(-observerBandwidth * ones(1, dynamicsOrder+1))'; *)</span>
+</span><span><a class="LN" name="126">  126   </a>        c[0] := 1.0;
+</span><span><a class="LN" name="127">  127   </a>        c[1] := b_observerBandwidth;
+</span><span><a class="LN" name="128">  128   </a>        c[2] := b_observerBandwidth * b_observerBandwidth;
+</span><span><a class="LN" name="129">  129   </a>        b_k := 1;
+</span><span><a class="LN" name="130">  130   </a>        <span class="KW">WHILE</span> (b_k + 1) &gt; 1 <span class="KW">DO</span>
+</span><span><a class="LN" name="131">  131   </a>            c[b_k] := c[b_k] - (c[b_k - 1] * ( -b_observerBandwidth));
+</span><span><a class="LN" name="132">  132   </a>            b_k := b_k - 1;
+</span><span><a class="LN" name="133">  133   </a>        <span class="KW">END_WHILE</span>;
+</span><span><a class="LN" name="134">  134   </a>        c[3] := b_observerBandwidth * c[2];
+</span><span><a class="LN" name="135">  135   </a>        b_k := 2;
+</span><span><a class="LN" name="136">  136   </a>        <span class="KW">WHILE</span> (b_k + 1) &gt; 1 <span class="KW">DO</span>
+</span><span><a class="LN" name="137">  137   </a>            c[b_k] := c[b_k] - (c[b_k - 1] * ( -b_observerBandwidth));
+</span><span><a class="LN" name="138">  138   </a>            b_k := b_k - 1;
+</span><span><a class="LN" name="139">  139   </a>        <span class="KW">END_WHILE</span>;
+</span><span><a class="LN" name="140">  140   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:40')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:40</i></font></a>' observerGainVector = extendedGainVector(2:end); *)</span>
+</span><span><a class="LN" name="141">  141   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:16')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:16</i></font></a>' estimatedExtendedStateDerivative = A * previousEstimatedExtendedState +... *)</span>
+</span><span><a class="LN" name="142">  142   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:17')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:17</i></font></a>'         B * controlSignal +... *)</span>
+</span><span><a class="LN" name="143">  143   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27:1:18')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:18</i></font></a>'         L * (controlError - previousEstimatedExtendedState(1)); *)</span>
+</span><span><a class="LN" name="144">  144   </a>        b_observerBandwidth := (Ref - fdbck) - e_DiscreteTimeIntegrator_DS[0];
+</span><span><a class="LN" name="145">  145   </a>        <span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="146">  146   </a>        <span class="CT">(* MATLAB Function 'ADRC/ADRC controller/Observer output/Only estimated total disturbance/Last element of estimated extended state': '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:254:1')" name="code2model"><font color="#117755"><i>&lt;S8&gt;:1</i></font></a>' *)</span>
+</span><span><a class="LN" name="147">  147   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:254:1:2')" name="code2model"><font color="#117755"><i>&lt;S8&gt;:1:2</i></font></a>' y = u(end); *)</span>
+</span><span><a class="LN" name="148">  148   </a>        <span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="149">  149   </a>        <span class="CT">(* DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>' incorporates:</span>
+</span><span><a class="LN" name="150">  150   </a><span class="CT">         *  MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Linear extended state observer</i></font></a>' *)</span>
+</span><span><a class="LN" name="151">  151   </a>        c_DiscreteTimeIntegrator_DS := e_DiscreteTimeIntegrator_DS[1];
+</span><span><a class="LN" name="152">  152   </a>        d_DiscreteTimeIntegrator_DS := e_DiscreteTimeIntegrator_DS[2];
+</span><span><a class="LN" name="153">  153   </a>        <span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Linear extended state observer</i></font></a>' incorporates:</span>
+</span><span><a class="LN" name="154">  154   </a><span class="CT">         *  DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>' *)</span>
+</span><span><a class="LN" name="155">  155   </a>        <span class="KW">FOR</span> b_k := 0 <span class="KW">TO</span> 2 <span class="KW">DO</span> 
+</span><span><a class="LN" name="156">  156   </a>            a[b_k] := (SINT_TO_LREAL(b_a[b_k + 3]) * c_DiscreteTimeIntegrator_DS) + (SINT_TO_LREAL(b_a[b_k + 6]) * d_DiscreteTimeIntegrator_DS);
+</span><span><a class="LN" name="157">  157   </a>        <span class="KW">END_FOR</span>;
+</span><span><a class="LN" name="158">  158   </a>        <span class="CT">(* Update for DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>' incorporates:</span>
+</span><span><a class="LN" name="159">  159   </a><span class="CT">         *  MATLAB Function: '<a href="matlab:coder.internal.code2model('model_prawego_zbiornika:80:27')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Linear extended state observer</i></font></a>' *)</span>
+</span><span><a class="LN" name="160">  160   </a>        e_DiscreteTimeIntegrator_DS[0] := (((c[1] * b_observerBandwidth) + a[0]) * 0.02) + e_DiscreteTimeIntegrator_DS[0];
+</span><span><a class="LN" name="161">  161   </a>        e_DiscreteTimeIntegrator_DS[1] := ((((( -b_controllerBandwidth) * y) + a[1]) + (c[2] * b_observerBandwidth)) * 0.02) + e_DiscreteTimeIntegrator_DS[1];
+</span><span><a class="LN" name="162">  162   </a>        e_DiscreteTimeIntegrator_DS[2] := (((c[3] * b_observerBandwidth) + a[2]) * 0.02) + e_DiscreteTimeIntegrator_DS[2];
+</span><span><a class="LN" name="163">  163   </a>        <span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="164">  164   </a><span class="KW">END_CASE</span>;
+</span><span><a class="LN" name="165">  165   </a><span class="KW">END_FUNCTION_BLOCK</span>
+</span><span><a class="LN" name="166">  166   </a><span class="KW">VAR_GLOBAL</span> <span class="KW">CONSTANT</span>
+</span><span><a class="LN" name="167">  167   </a>    SS_INITIALIZE: <span class="KW">SINT</span> := 0;
+</span><span><a class="LN" name="168">  168   </a>    SS_STEP: <span class="KW">SINT</span> := 1;
+</span><span><a class="LN" name="169">  169   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="170">  170   </a>
 </span></pre>
 </td></tr></table>
 </p>

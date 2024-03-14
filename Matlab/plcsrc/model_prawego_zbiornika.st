@@ -2,311 +2,168 @@
  *
  * File: model_prawego_zbiornika.st
  *
- * IEC 61131-3 Structured Text (ST) code generated for subsystem "model_prawego_zbiornika/REGULATOR/FLC"
+ * IEC 61131-3 Structured Text (ST) code generated for subsystem "model_prawego_zbiornika/ADRC"
  *
  * Model name                      : model_prawego_zbiornika
- * Model version                   : 1.14
+ * Model version                   : 1.20
  * Model creator                   : kerif
  * Model last modified by          : kerif
- * Model last modified on          : Tue Jan 16 01:21:37 2024
- * Model sample time               : 0s
- * Subsystem name                  : model_prawego_zbiornika/REGULATOR/FLC
+ * Model last modified on          : Mon Mar 11 22:44:08 2024
+ * Model sample time               : 0.02s
+ * Subsystem name                  : model_prawego_zbiornika/ADRC
  * Subsystem sample time           : 0.02s
  * Simulink PLC Coder version      : 23.2 (R2023b) 01-Aug-2023
- * ST code generated on            : Tue Jan 16 22:43:28 2024
+ * ST code generated on            : Tue Mar 12 11:35:33 2024
  *
  * Target IDE selection            : 3S CoDeSys 3.5
  * Test Bench included             : No
  *
  *)
-FUNCTION_BLOCK FLC
+FUNCTION_BLOCK ADRC
 VAR_INPUT
-    Error: LREAL;
-    Errorchange: LREAL;
+    ssMethodType: SINT;
+    Ref: LREAL;
+    fdbck: LREAL;
+    b: LREAL;
+    obs_band: LREAL;
+    ctrl_band: LREAL;
 END_VAR
 VAR_OUTPUT
-    out: LREAL;
+    y: LREAL;
 END_VAR
 VAR
-    OutputSamplePoints_Value: ARRAY [0..100] OF LREAL := -100.0,-98.0,-96.0,-94.0,-92.0,-90.0,-88.0,-86.0,-84.0,
-        -82.0,-80.0,-78.0,-76.0,-74.0,-72.0,-70.0,-68.0,-66.0,-64.0,-62.0,-60.0,-58.0,-56.0,-54.0,-52.0,-50.0,-48.0,
-        -46.0,-44.0,-42.0,-40.0,-38.0,-36.0,-34.0,-32.0,-30.0,-28.0,-26.0,-24.0,-22.0,-20.0,-18.0,-16.0,-14.0,-12.0,
-        -10.0,-8.0,-6.0,-4.0,-2.0,0.0,2.0,4.0,6.0,8.0,10.0,12.0,14.0,16.0,18.0,20.0,22.0,24.0,26.0,28.0,30.0,32.0,
-        34.0,36.0,38.0,40.0,42.0,44.0,46.0,48.0,50.0,52.0,54.0,56.0,58.0,60.0,62.0,64.0,66.0,68.0,70.0,72.0,74.0,
-        76.0,78.0,80.0,82.0,84.0,86.0,88.0,90.0,92.0,94.0,96.0,98.0,100.0;
-    m: ARRAY [0..2] OF LREAL := -18.4166666666667,-13.0,-7.58333333333333;
-    b_l: ARRAY [0..2] OF LREAL := -11.9166666666667,-6.5,-0.694927032661571;
-    k: ARRAY [0..2] OF LREAL := 0.604166666666671,6.54166666666666,11.9583333333333;
-    j: ARRAY [0..2] OF LREAL := 7.58333333333333,13.0,18.4166666666667;
-    i: ARRAY [0..2] OF LREAL := -0.894444444444444,-0.7,-0.505555555555556;
-    h: ARRAY [0..2] OF LREAL := -0.661111111111111,-0.466666666666667,-0.272222222222222;
-    g: ARRAY [0..2] OF LREAL := -0.427777777777778,-0.233333333333333,-0.0388888888888889;
-    f: ARRAY [0..2] OF LREAL := -0.194444444444445,-5.55111512312578E-17,0.194444444444444;
-    e: ARRAY [0..2] OF LREAL := 0.0388888888888888,0.233333333333333,0.427777777777778;
-    b_d: ARRAY [0..2] OF LREAL := 0.272222222222222,0.466666666666667,0.661111111111111;
-    c: ARRAY [0..2] OF LREAL := 0.505555555555555,0.7,0.894444444444444;
-    b: ARRAY [0..25] OF SINT := 1,2,5,4,4,4,4,4,4,4,3,6,7,4,4,4,4,1,2,3,5,6,7,4,4,4;
-    b_h: ARRAY [0..2] OF LREAL := -127.777777777778,-100.0,-72.2222222222222;
-    b_g: ARRAY [0..2] OF LREAL := -94.4444444444444,-66.6666666666667,-38.8888888888889;
-    b_f: ARRAY [0..2] OF LREAL := -61.1111111111111,-33.3333333333333,-5.55555555555554;
-    b_e: ARRAY [0..2] OF LREAL := -27.7777777777778,1.4210854715202E-14,27.7777777777778;
-    c_d: ARRAY [0..2] OF LREAL := 5.55555555555557,33.3333333333333,61.1111111111111;
-    b_c: ARRAY [0..2] OF LREAL := 72.2222222222223,100.0,127.777777777778;
-    b_b: ARRAY [0..12] OF SINT := 1,2,6,4,1,2,3,5,6,7,3,6,7;
-    i0_trimf_n: trimf_n;
+    e_DiscreteTimeIntegrator_DS: ARRAY [0..2] OF LREAL;
+    b_a: ARRAY [0..8] OF SINT := 0,0,0,1,0,0,0,1,0;
 END_VAR
 VAR_TEMP
-    inputMFCache: ARRAY [0..13] OF LREAL;
-    inputID: DINT;
-    mfVal: LREAL;
-    outputMFCache: ARRAY [0..706] OF LREAL;
-    rtb_antecedentOutputs: ARRAY [0..12] OF LREAL;
-    rtb_aggregatedOutputs: ARRAY [0..100] OF LREAL;
-    rtb_defuzzifiedOutputs: LREAL;
-    ruleID: DINT;
-    tmp: ARRAY [0..2] OF LREAL;
-    tmp_0: ARRAY [0..100] OF LREAL;
-    tmp_1: ARRAY [0..100] OF LREAL;
-    tmp_2: ARRAY [0..100] OF LREAL;
-    tmp_3: ARRAY [0..100] OF LREAL;
-    tmp_4: ARRAY [0..100] OF LREAL;
-    tmp_5: ARRAY [0..100] OF LREAL;
-    tmp_6: ARRAY [0..100] OF LREAL;
-    c_rtb_TmpSignalConversionAt: LREAL;
+    usedInputGain: LREAL;
+    b_controllerBandwidth: LREAL;
+    b_k: DINT;
+    b_observerBandwidth: LREAL;
+    c: ARRAY [0..3] OF LREAL;
+    a: ARRAY [0..2] OF LREAL;
+    c_DiscreteTimeIntegrator_DS: LREAL;
+    d_DiscreteTimeIntegrator_DS: LREAL;
 END_VAR
-(* Outputs for Atomic SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* MATLAB Function: '<S2>/Evaluate Rule Antecedents' *)
-(* MATLAB Function 'Evaluate Rule Antecedents': '<S4>:1' *)
-(* '<S4>:1:4' if SimulateUsing==1 && coder.internal.canUseExtrinsic ... *)
-(* '<S4>:1:5'         && (isa(inputs,'double') || isa(inputs,'single')) *)
-(* '<S4>:1:32' else *)
-(* '<S4>:1:33' if fis.inputFuzzySetType==1 *)
-(* '<S4>:1:34' [antecedentOutputs,sumAntecedentOutputs] = ... *)
-(* '<S4>:1:35'             fuzzy.internal.codegen.evaluateRuleAntecedent(... *)
-(* '<S4>:1:36'             inputs,fis,diagnostics); *)
-rtb_defuzzifiedOutputs := 0.0;
-(* End of Outputs for SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* End of Outputs for SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* MATLAB Function: '<S2>/Evaluate Rule Antecedents' incorporates:
- *  SignalConversion: '<S4>/TmpSignal ConversionAt SFunction Inport1' *)
-tmp[0] := -24.9166666666667;
-tmp[1] := -19.5;
-tmp[2] := -14.0833333333333;
-inputMFCache[0] := trimf(x := Error, params := tmp);
-inputMFCache[1] := trimf(x := Error, params := m);
-inputMFCache[2] := trimf(x := Error, params := b_l);
-(* End of Outputs for SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* End of Outputs for SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* MATLAB Function: '<S2>/Evaluate Rule Antecedents' incorporates:
- *  SignalConversion: '<S4>/TmpSignal ConversionAt SFunction Inport1' *)
-tmp[0] := -5.41666666666667;
-tmp[1] := 0.0;
-tmp[2] := 5.41666666666667;
-inputMFCache[3] := trimf(x := Error, params := tmp);
-inputMFCache[4] := trimf(x := Error, params := k);
-inputMFCache[5] := trimf(x := Error, params := j);
-(* End of Outputs for SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* End of Outputs for SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* MATLAB Function: '<S2>/Evaluate Rule Antecedents' incorporates:
- *  SignalConversion: '<S4>/TmpSignal ConversionAt SFunction Inport1' *)
-tmp[0] := 14.0833333333333;
-tmp[1] := 19.5;
-tmp[2] := 24.9166666666667;
-inputMFCache[6] := trimf(x := Error, params := tmp);
-inputMFCache[7] := trimf(x := Errorchange, params := i);
-inputMFCache[8] := trimf(x := Errorchange, params := h);
-inputMFCache[9] := trimf(x := Errorchange, params := g);
-inputMFCache[10] := trimf(x := Errorchange, params := f);
-inputMFCache[11] := trimf(x := Errorchange, params := e);
-inputMFCache[12] := trimf(x := Errorchange, params := b_d);
-inputMFCache[13] := trimf(x := Errorchange, params := c);
-(* End of Outputs for SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* End of Outputs for SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* MATLAB Function: '<S2>/Evaluate Rule Antecedents' *)
-FOR ruleID := 0 TO 12 DO 
-    c_rtb_TmpSignalConversionAt := inputMFCache[SINT_TO_DINT(b[ruleID]) - 1];
-    IF c_rtb_TmpSignalConversionAt < 1.0 THEN 
-        mfVal := c_rtb_TmpSignalConversionAt;
-    ELSE 
-        mfVal := 1.0;
-    END_IF;
-    c_rtb_TmpSignalConversionAt := inputMFCache[SINT_TO_DINT(b[ruleID + 13]) + 6];
-    IF mfVal > c_rtb_TmpSignalConversionAt THEN 
-        mfVal := c_rtb_TmpSignalConversionAt;
-    END_IF;
-    rtb_antecedentOutputs[ruleID] := mfVal;
-    rtb_defuzzifiedOutputs := rtb_defuzzifiedOutputs + mfVal;
-END_FOR;
-(* MATLAB Function: '<S2>/Evaluate Rule Consequents' incorporates:
- *  Constant: '<S2>/Output Sample Points' *)
-(* MATLAB Function 'Evaluate Rule Consequents': '<S5>:1' *)
-(* '<S5>:1:4' if SimulateUsing==1 && coder.internal.canUseExtrinsic ... *)
-(* '<S5>:1:5'         && (isa(inputs,'double') || isa(inputs,'single')) *)
-(* '<S5>:1:55' else *)
-(* '<S5>:1:56' if fis.inputFuzzySetType==1 *)
-(* '<S5>:1:57' if strcmp(char(fis.type),'mamdani') *)
-(* '<S5>:1:58' aggregatedOutputs = ... *)
-(* '<S5>:1:59'                 fuzzy.internal.codegen.evaluateRuleConsequentForMamdaniFIS(... *)
-(* '<S5>:1:60'                 antecedentOutputs,fis,samplePoints); *)
-i0_trimf_n(x := OutputSamplePoints_Value, params := b_h);
-tmp_0 := i0_trimf_n.y;
-i0_trimf_n(x := OutputSamplePoints_Value, params := b_g);
-tmp_1 := i0_trimf_n.y;
-i0_trimf_n(x := OutputSamplePoints_Value, params := b_f);
-tmp_2 := i0_trimf_n.y;
-i0_trimf_n(x := OutputSamplePoints_Value, params := b_e);
-tmp_3 := i0_trimf_n.y;
-i0_trimf_n(x := OutputSamplePoints_Value, params := c_d);
-tmp_4 := i0_trimf_n.y;
-(* End of Outputs for SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* End of Outputs for SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* MATLAB Function: '<S2>/Evaluate Rule Consequents' incorporates:
- *  Constant: '<S2>/Output Sample Points' *)
-tmp[0] := 38.8888888888889;
-tmp[1] := 66.6666666666667;
-tmp[2] := 94.4444444444445;
-i0_trimf_n(x := OutputSamplePoints_Value, params := tmp);
-tmp_5 := i0_trimf_n.y;
-i0_trimf_n(x := OutputSamplePoints_Value, params := b_c);
-tmp_6 := i0_trimf_n.y;
-(* End of Outputs for SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* End of Outputs for SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<Root>/FLC' *)
-(* Outputs for Atomic SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* MATLAB Function: '<S2>/Evaluate Rule Consequents' *)
-FOR ruleID := 0 TO 100 DO 
-    rtb_aggregatedOutputs[ruleID] := 0.0;
-    outputMFCache[7 * ruleID] := tmp_0[ruleID];
-    outputMFCache[(7 * ruleID) + 1] := tmp_1[ruleID];
-    outputMFCache[(7 * ruleID) + 2] := tmp_2[ruleID];
-    outputMFCache[(7 * ruleID) + 3] := tmp_3[ruleID];
-    outputMFCache[(7 * ruleID) + 4] := tmp_4[ruleID];
-    outputMFCache[(7 * ruleID) + 5] := tmp_5[ruleID];
-    outputMFCache[(7 * ruleID) + 6] := tmp_6[ruleID];
-END_FOR;
-FOR ruleID := 0 TO 12 DO 
-    c_rtb_TmpSignalConversionAt := rtb_antecedentOutputs[ruleID];
-    FOR inputID := 0 TO 100 DO 
-        mfVal := outputMFCache[((7 * inputID) + SINT_TO_DINT(b_b[ruleID])) - 1];
-        IF mfVal > c_rtb_TmpSignalConversionAt THEN 
-            mfVal := c_rtb_TmpSignalConversionAt;
+CASE ssMethodType OF
+    SS_INITIALIZE: 
+        (* SystemInitialize for Atomic SubSystem: '<Root>/ADRC' *)
+        (* InitializeConditions for DiscreteIntegrator: '<S3>/Discrete-Time Integrator' *)
+        e_DiscreteTimeIntegrator_DS[0] := 0.0;
+        e_DiscreteTimeIntegrator_DS[1] := 0.0;
+        e_DiscreteTimeIntegrator_DS[2] := 0.0;
+        (* End of SystemInitialize for SubSystem: '<Root>/ADRC' *)
+    SS_STEP: 
+        (* Outputs for Atomic SubSystem: '<Root>/ADRC' *)
+        (* MATLAB Function: '<S5>/Extended state feedback robust controller' incorporates:
+         *  DiscreteIntegrator: '<S3>/Discrete-Time Integrator' *)
+        (* MATLAB Function 'ADRC/ADRC controller/State feedback robust controller/Extended state feedback robust controller': '<S10>:1' *)
+        (* '<S10>:1:8' usedInputGain = evaluateSource(inputGainParameter, externalInputGainParameter); *)
+        (* '<S10>:1:17' if(external == 0) *)
+        IF b = 0.0 THEN 
+            (* '<S10>:1:18' output = internal; *)
+            usedInputGain := 0.005862;
+        ELSE 
+            (* '<S10>:1:19' else *)
+            (* '<S10>:1:20' output = external; *)
+            usedInputGain := b;
         END_IF;
-        IF rtb_aggregatedOutputs[inputID] < mfVal THEN 
-            rtb_aggregatedOutputs[inputID] := mfVal;
+        (* '<S10>:1:9' usedControllerBandwidth = evaluateSource(controllerBandwidth, externalControllerBandwidth); *)
+        (* '<S10>:1:17' if(external == 0) *)
+        IF ctrl_band = 0.0 THEN 
+            (* '<S10>:1:18' output = internal; *)
+            b_controllerBandwidth := 0.5;
+        ELSE 
+            (* '<S10>:1:19' else *)
+            (* '<S10>:1:20' output = external; *)
+            b_controllerBandwidth := ctrl_band;
         END_IF;
-    END_FOR;
-END_FOR;
-(* MATLAB Function: '<S2>/Defuzzify Outputs' incorporates:
- *  Constant: '<S2>/Output Sample Points'
- *  MATLAB Function: '<S2>/Evaluate Rule Antecedents' *)
-(* MATLAB Function 'Defuzzify Outputs': '<S3>:1' *)
-(* '<S3>:1:4' if SimulateUsing==1 && coder.internal.canUseExtrinsic ... *)
-(* '<S3>:1:5'         && (isa(aggregatedOutputs,'double') || isa(aggregatedOutputs,'single')) *)
-(* '<S3>:1:63' else *)
-(* '<S3>:1:64' if fis.inputFuzzySetType==1 *)
-(* '<S3>:1:65' if isequal(fis.type,uint8('mamdani')) *)
-(* '<S3>:1:66' defuzzifiedOutputs = ... *)
-(* '<S3>:1:67'                 fuzzy.internal.codegen.applyMamdaniDefuzzificationMethod(... *)
-(* '<S3>:1:68'                 samplePoints,sumAntecedentOutputs,aggregatedOutputs, ... *)
-(* '<S3>:1:69'                 fis,diagnostics); *)
-IF rtb_defuzzifiedOutputs = 0.0 THEN 
-    (* Outport: '<Root>/out' *)
-    out := 0.0;
-ELSE 
-    rtb_defuzzifiedOutputs := 0.0;
-    mfVal := 0.0;
-    FOR ruleID := 0 TO 100 DO 
-        mfVal := mfVal + rtb_aggregatedOutputs[ruleID];
-    END_FOR;
-    IF mfVal = 0.0 THEN 
-        (* Outport: '<Root>/out' *)
-        out := 0.0;
-    ELSE 
-        FOR ruleID := 0 TO 100 DO 
-            rtb_defuzzifiedOutputs := (OutputSamplePoints_Value[ruleID] * rtb_aggregatedOutputs[ruleID]) + rtb_defuzzifiedOutputs;
+        (* '<S10>:1:10' K = calculateControllerGain(usedControllerBandwidth, dynamicsOrder); *)
+        (* '<S10>:1:25' extendedControllerGain = poly(-controllerBandwidth * ones(1, dynamicsOrder)); *)
+        (* '<S10>:1:26' controllerGain = flip(extendedControllerGain(2:end)); *)
+        (* '<S10>:1:12' controlSignal = 1/usedInputGain * (estimatedExtendedState(end) +... *)
+        (* '<S10>:1:13'             K * estimatedExtendedState(1:end-1)); *)
+        y := ((((b_controllerBandwidth * b_controllerBandwidth) * e_DiscreteTimeIntegrator_DS[0]) + ((b_controllerBandwidth - ( -b_controllerBandwidth)) * e_DiscreteTimeIntegrator_DS[1])) + e_DiscreteTimeIntegrator_DS[2]) * (1.0 / usedInputGain);
+        (* End of MATLAB Function: '<S5>/Extended state feedback robust controller' *)
+        
+        (* Saturate: '<S13>/Saturation' *)
+        IF y > 100.0 THEN 
+            y := 100.0;
+        ELSIF y < 0.0 THEN 
+            y := 0.0;
+        END_IF;
+        (* End of Saturate: '<S13>/Saturation' *)
+        
+        (* MATLAB Function: '<S3>/Linear extended state observer' incorporates:
+         *  DiscreteIntegrator: '<S3>/Discrete-Time Integrator'
+         *  Sum: '<S1>/Sum' *)
+        (* MATLAB Function 'ADRC/ADRC controller/Linear extended state observer/Linear extended state observer': '<S6>:1' *)
+        (* '<S6>:1:10' usedInputGain = evaluateSource(inputGainParameter, externalInputGainParameter); *)
+        (* '<S6>:1:22' if(external == 0) *)
+        IF b = 0.0 THEN 
+            (* '<S6>:1:23' output = internal; *)
+            b_controllerBandwidth := 0.005862;
+        ELSE 
+            (* '<S6>:1:24' else *)
+            (* '<S6>:1:25' output = external; *)
+            b_controllerBandwidth := b;
+        END_IF;
+        (* '<S6>:1:11' usedObserverBandwidth = evaluateSource(observerBandwidth, externalObserverBandwidth); *)
+        (* '<S6>:1:22' if(external == 0) *)
+        IF obs_band = 0.0 THEN 
+            (* '<S6>:1:23' output = internal; *)
+            b_observerBandwidth := 3.0;
+        ELSE 
+            (* '<S6>:1:24' else *)
+            (* '<S6>:1:25' output = external; *)
+            b_observerBandwidth := obs_band;
+        END_IF;
+        (* '<S6>:1:12' A = calculateObserverStateMatrix(dynamicsOrder); *)
+        (* '<S6>:1:13' B = calculateObserverInputMatrix(usedInputGain, dynamicsOrder); *)
+        (* '<S6>:1:35' observerInputMatrix = [zeros(dynamicsOrder-1,1); -inputGainParameter; 0]; *)
+        (* '<S6>:1:14' L = calculateObserverGainVector(usedObserverBandwidth, dynamicsOrder); *)
+        (* '<S6>:1:39' extendedGainVector = poly(-observerBandwidth * ones(1, dynamicsOrder+1))'; *)
+        c[0] := 1.0;
+        c[1] := b_observerBandwidth;
+        c[2] := b_observerBandwidth * b_observerBandwidth;
+        b_k := 1;
+        WHILE (b_k + 1) > 1 DO
+            c[b_k] := c[b_k] - (c[b_k - 1] * ( -b_observerBandwidth));
+            b_k := b_k - 1;
+        END_WHILE;
+        c[3] := b_observerBandwidth * c[2];
+        b_k := 2;
+        WHILE (b_k + 1) > 1 DO
+            c[b_k] := c[b_k] - (c[b_k - 1] * ( -b_observerBandwidth));
+            b_k := b_k - 1;
+        END_WHILE;
+        (* '<S6>:1:40' observerGainVector = extendedGainVector(2:end); *)
+        (* '<S6>:1:16' estimatedExtendedStateDerivative = A * previousEstimatedExtendedState +... *)
+        (* '<S6>:1:17'         B * controlSignal +... *)
+        (* '<S6>:1:18'         L * (controlError - previousEstimatedExtendedState(1)); *)
+        b_observerBandwidth := (Ref - fdbck) - e_DiscreteTimeIntegrator_DS[0];
+        (* End of Outputs for SubSystem: '<Root>/ADRC' *)
+        (* MATLAB Function 'ADRC/ADRC controller/Observer output/Only estimated total disturbance/Last element of estimated extended state': '<S8>:1' *)
+        (* '<S8>:1:2' y = u(end); *)
+        (* Outputs for Atomic SubSystem: '<Root>/ADRC' *)
+        (* DiscreteIntegrator: '<S3>/Discrete-Time Integrator' incorporates:
+         *  MATLAB Function: '<S3>/Linear extended state observer' *)
+        c_DiscreteTimeIntegrator_DS := e_DiscreteTimeIntegrator_DS[1];
+        d_DiscreteTimeIntegrator_DS := e_DiscreteTimeIntegrator_DS[2];
+        (* MATLAB Function: '<S3>/Linear extended state observer' incorporates:
+         *  DiscreteIntegrator: '<S3>/Discrete-Time Integrator' *)
+        FOR b_k := 0 TO 2 DO 
+            a[b_k] := (SINT_TO_LREAL(b_a[b_k + 3]) * c_DiscreteTimeIntegrator_DS) + (SINT_TO_LREAL(b_a[b_k + 6]) * d_DiscreteTimeIntegrator_DS);
         END_FOR;
-        (* Outport: '<Root>/out' incorporates:
-         *  Constant: '<S2>/Output Sample Points' *)
-        out := (1.0 / mfVal) * rtb_defuzzifiedOutputs;
-    END_IF;
-END_IF;
-(* End of MATLAB Function: '<S2>/Defuzzify Outputs' *)
-(* End of Outputs for SubSystem: '<S1>/Fuzzy Logic  Controller' *)
-(* End of Outputs for SubSystem: '<Root>/FLC' *)
+        (* Update for DiscreteIntegrator: '<S3>/Discrete-Time Integrator' incorporates:
+         *  MATLAB Function: '<S3>/Linear extended state observer' *)
+        e_DiscreteTimeIntegrator_DS[0] := (((c[1] * b_observerBandwidth) + a[0]) * 0.02) + e_DiscreteTimeIntegrator_DS[0];
+        e_DiscreteTimeIntegrator_DS[1] := ((((( -b_controllerBandwidth) * y) + a[1]) + (c[2] * b_observerBandwidth)) * 0.02) + e_DiscreteTimeIntegrator_DS[1];
+        e_DiscreteTimeIntegrator_DS[2] := (((c[3] * b_observerBandwidth) + a[2]) * 0.02) + e_DiscreteTimeIntegrator_DS[2];
+        (* End of Outputs for SubSystem: '<Root>/ADRC' *)
+END_CASE;
 END_FUNCTION_BLOCK
-FUNCTION trimf: LREAL
-VAR_INPUT
-    x: LREAL;
-    params: ARRAY [0..2] OF LREAL;
+VAR_GLOBAL CONSTANT
+    SS_INITIALIZE: SINT := 0;
+    SS_STEP: SINT := 1;
 END_VAR
-trimf := 0.0;
-IF params[0] <> params[1] THEN 
-    IF params[0] < x THEN 
-        IF x < params[1] THEN 
-            trimf := (1.0 / (params[1] - params[0])) * (x - params[0]);
-        END_IF;
-    END_IF;
-END_IF;
-IF params[1] <> params[2] THEN 
-    IF params[1] < x THEN 
-        IF x < params[2] THEN 
-            trimf := (1.0 / (params[2] - params[1])) * (params[2] - x);
-        END_IF;
-    END_IF;
-END_IF;
-IF x = params[1] THEN 
-    trimf := 1.0;
-END_IF;
-END_FUNCTION
-FUNCTION_BLOCK trimf_n
-VAR_INPUT
-    x: ARRAY [0..100] OF LREAL;
-    params: ARRAY [0..2] OF LREAL;
-END_VAR
-VAR_OUTPUT
-    y: ARRAY [0..100] OF LREAL;
-END_VAR
-VAR_TEMP
-    a: LREAL;
-    b: LREAL;
-    c: LREAL;
-    i: DINT;
-    x_0: LREAL;
-END_VAR
-a := params[0];
-b := params[1];
-c := params[2];
-FOR i := 0 TO 100 DO 
-    y[i] := 0.0;
-    IF a <> b THEN 
-        x_0 := x[i];
-        IF a < x_0 THEN 
-            IF x_0 < b THEN 
-                y[i] := (1.0 / (b - a)) * (x_0 - a);
-            END_IF;
-        END_IF;
-    END_IF;
-    IF b <> c THEN 
-        x_0 := x[i];
-        IF b < x_0 THEN 
-            IF x_0 < c THEN 
-                y[i] := (1.0 / (c - b)) * (c - x_0);
-            END_IF;
-        END_IF;
-    END_IF;
-    IF x[i] = b THEN 
-        y[i] := 1.0;
-    END_IF;
-END_FOR;
-END_FUNCTION_BLOCK
