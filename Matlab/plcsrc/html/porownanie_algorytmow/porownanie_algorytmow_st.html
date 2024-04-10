@@ -1,0 +1,157 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>RTW Report - porownanie_algorytmow.st</title>
+<link rel="stylesheet" type="text/css" href="rtwreport.css"></link><script language="JavaScript" type="text/javascript" src="rtwreport_utils.js"></script>
+</head>
+<body bgcolor="#eeeeee" onload="try {if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window.document); else local_onload();}} catch(err) {};">
+<p>
+<table border="0" cellspacing="0" cellpadding="6" width="100%%" height="100%%"><tr><td width="100%%" valign="top" bgcolor="#ffffff">
+<h4>File: <a href="file:///plcsrc/porownanie_algorytmow.st" target="rtwreport_document_frame" id="linkToText_plain">porownanie_algorytmow.st</a></h4>
+<pre id="RTWcode">
+<span><a class="LN" name="1">    1   </a><span class="CT">(*</span>
+</span><span><a class="LN" name="2">    2   </a><span class="CT"> *</span>
+</span><span><a class="LN" name="3">    3   </a><span class="CT"> * File: porownanie_algorytmow.st</span>
+</span><span><a class="LN" name="4">    4   </a><span class="CT"> *</span>
+</span><span><a class="LN" name="5">    5   </a><span class="CT"> * IEC 61131-3 Structured Text (ST) code generated for subsystem "porownanie_algorytmow/ADRC"</span>
+</span><span><a class="LN" name="6">    6   </a><span class="CT"> *</span>
+</span><span><a class="LN" name="7">    7   </a><span class="CT"> * Model name                      : porownanie_algorytmow</span>
+</span><span><a class="LN" name="8">    8   </a><span class="CT"> * Model version                   : 1.23</span>
+</span><span><a class="LN" name="9">    9   </a><span class="CT"> * Model creator                   : kerif</span>
+</span><span><a class="LN" name="10">   10   </a><span class="CT"> * Model last modified by          : kerif</span>
+</span><span><a class="LN" name="11">   11   </a><span class="CT"> * Model last modified on          : Mon Mar 18 20:22:25 2024</span>
+</span><span><a class="LN" name="12">   12   </a><span class="CT"> * Model sample time               : 0.02s</span>
+</span><span><a class="LN" name="13">   13   </a><span class="CT"> * Subsystem name                  : porownanie_algorytmow/ADRC</span>
+</span><span><a class="LN" name="14">   14   </a><span class="CT"> * Subsystem sample time           : 0.02s</span>
+</span><span><a class="LN" name="15">   15   </a><span class="CT"> * Simulink PLC Coder version      : 23.2 (R2023b) 01-Aug-2023</span>
+</span><span><a class="LN" name="16">   16   </a><span class="CT"> * ST code generated on            : Mon Mar 18 20:50:19 2024</span>
+</span><span><a class="LN" name="17">   17   </a><span class="CT"> *</span>
+</span><span><a class="LN" name="18">   18   </a><span class="CT"> * Target IDE selection            : 3S CoDeSys 3.5</span>
+</span><span><a class="LN" name="19">   19   </a><span class="CT"> * Test Bench included             : No</span>
+</span><span><a class="LN" name="20">   20   </a><span class="CT"> *</span>
+</span><span><a class="LN" name="21">   21   </a><span class="CT"> *)</span>
+</span><span><a class="LN" name="22">   22   </a><span class="KW">FUNCTION_BLOCK</span> ADRC
+</span><span><a class="LN" name="23">   23   </a><span class="KW">VAR_INPUT</span>
+</span><span><a class="LN" name="24">   24   </a>    ssMethodType: <span class="KW">SINT</span>;
+</span><span><a class="LN" name="25">   25   </a>    Ref: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="26">   26   </a>    fdbck: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="27">   27   </a>    b: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="28">   28   </a>    obs_band: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="29">   29   </a>    ctrl_band: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="30">   30   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="31">   31   </a><span class="KW">VAR_OUTPUT</span>
+</span><span><a class="LN" name="32">   32   </a>    y: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="33">   33   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="34">   34   </a><span class="KW">VAR</span>
+</span><span><a class="LN" name="35">   35   </a>    c_DiscreteTimeIntegrator_DS: <span class="KW">ARRAY</span> [0..1] <span class="KW">OF</span> <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="36">   36   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="37">   37   </a><span class="KW">VAR_TEMP</span>
+</span><span><a class="LN" name="38">   38   </a>    usedInputGain: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="39">   39   </a>    b_controllerBandwidth: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="40">   40   </a>    b_observerBandwidth: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="41">   41   </a>    c_idx_2: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="42">   42   </a>    c_idx_1: <span class="KW">LREAL</span>;
+</span><span><a class="LN" name="43">   43   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="44">   44   </a><span class="KW">CASE</span> ssMethodType <span class="KW">OF</span>
+</span><span><a class="LN" name="45">   45   </a>    SS_INITIALIZE: 
+</span><span><a class="LN" name="46">   46   </a>        <span class="CT">(* SystemInitialize for Atomic SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="47">   47   </a>        <span class="CT">(* InitializeConditions for DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>' *)</span>
+</span><span><a class="LN" name="48">   48   </a>        c_DiscreteTimeIntegrator_DS[0] := 0.0;
+</span><span><a class="LN" name="49">   49   </a>        c_DiscreteTimeIntegrator_DS[1] := 0.0;
+</span><span><a class="LN" name="50">   50   </a>        <span class="CT">(* End of SystemInitialize for SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="51">   51   </a>    SS_STEP: 
+</span><span><a class="LN" name="52">   52   </a>        <span class="CT">(* Outputs for Atomic SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="53">   53   </a>        <span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35')" name="code2model"><font color="#117755"><i>&lt;S5&gt;/Extended state feedback robust controller</i></font></a>' incorporates:</span>
+</span><span><a class="LN" name="54">   54   </a><span class="CT">         *  DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>' *)</span>
+</span><span><a class="LN" name="55">   55   </a>        <span class="CT">(* MATLAB Function 'ADRC/ADRC controller/State feedback robust controller/Extended state feedback robust controller': '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1</i></font></a>' *)</span>
+</span><span><a class="LN" name="56">   56   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:8')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:8</i></font></a>' usedInputGain = evaluateSource(inputGainParameter, externalInputGainParameter); *)</span>
+</span><span><a class="LN" name="57">   57   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:17')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:17</i></font></a>' if(external == 0) *)</span>
+</span><span><a class="LN" name="58">   58   </a>        <span class="KW">IF</span> b = 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="59">   59   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:18')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:18</i></font></a>' output = internal; *)</span>
+</span><span><a class="LN" name="60">   60   </a>            usedInputGain := 0.005862;
+</span><span><a class="LN" name="61">   61   </a>        <span class="KW">ELSE</span> 
+</span><span><a class="LN" name="62">   62   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:19')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:19</i></font></a>' else *)</span>
+</span><span><a class="LN" name="63">   63   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:20')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:20</i></font></a>' output = external; *)</span>
+</span><span><a class="LN" name="64">   64   </a>            usedInputGain := b;
+</span><span><a class="LN" name="65">   65   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="66">   66   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:9')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:9</i></font></a>' usedControllerBandwidth = evaluateSource(controllerBandwidth, externalControllerBandwidth); *)</span>
+</span><span><a class="LN" name="67">   67   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:17')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:17</i></font></a>' if(external == 0) *)</span>
+</span><span><a class="LN" name="68">   68   </a>        <span class="KW">IF</span> ctrl_band = 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="69">   69   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:18')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:18</i></font></a>' output = internal; *)</span>
+</span><span><a class="LN" name="70">   70   </a>            b_controllerBandwidth := 0.5;
+</span><span><a class="LN" name="71">   71   </a>        <span class="KW">ELSE</span> 
+</span><span><a class="LN" name="72">   72   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:19')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:19</i></font></a>' else *)</span>
+</span><span><a class="LN" name="73">   73   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:20')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:20</i></font></a>' output = external; *)</span>
+</span><span><a class="LN" name="74">   74   </a>            b_controllerBandwidth := ctrl_band;
+</span><span><a class="LN" name="75">   75   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="76">   76   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:10')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:10</i></font></a>' K = calculateControllerGain(usedControllerBandwidth, dynamicsOrder); *)</span>
+</span><span><a class="LN" name="77">   77   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:25')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:25</i></font></a>' extendedControllerGain = poly(-controllerBandwidth * ones(1, dynamicsOrder)); *)</span>
+</span><span><a class="LN" name="78">   78   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:26')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:26</i></font></a>' controllerGain = flip(extendedControllerGain(2:end)); *)</span>
+</span><span><a class="LN" name="79">   79   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:12')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:12</i></font></a>' controlSignal = 1/usedInputGain * (estimatedExtendedState(end) +... *)</span>
+</span><span><a class="LN" name="80">   80   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35:1:13')" name="code2model"><font color="#117755"><i>&lt;S10&gt;:1:13</i></font></a>'             K * estimatedExtendedState(1:end-1)); *)</span>
+</span><span><a class="LN" name="81">   81   </a>        y := ((b_controllerBandwidth * c_DiscreteTimeIntegrator_DS[0]) + c_DiscreteTimeIntegrator_DS[1]) * (1.0 / usedInputGain);
+</span><span><a class="LN" name="82">   82   </a>        <span class="CT">(* End of MATLAB Function: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:35')" name="code2model"><font color="#117755"><i>&lt;S5&gt;/Extended state feedback robust controller</i></font></a>' *)</span>
+</span><span><a class="LN" name="83">   83   </a>        
+</span><span><a class="LN" name="84">   84   </a>        <span class="CT">(* Saturate: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:107')" name="code2model"><font color="#117755"><i>&lt;S13&gt;/Saturation</i></font></a>' *)</span>
+</span><span><a class="LN" name="85">   85   </a>        <span class="KW">IF</span> y &gt; 100.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="86">   86   </a>            y := 100.0;
+</span><span><a class="LN" name="87">   87   </a>        <span class="KW">ELSIF</span> y &lt; 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="88">   88   </a>            y := 0.0;
+</span><span><a class="LN" name="89">   89   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="90">   90   </a>        <span class="CT">(* End of Saturate: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:107')" name="code2model"><font color="#117755"><i>&lt;S13&gt;/Saturation</i></font></a>' *)</span>
+</span><span><a class="LN" name="91">   91   </a>        
+</span><span><a class="LN" name="92">   92   </a>        <span class="CT">(* MATLAB Function: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Linear extended state observer</i></font></a>' incorporates:</span>
+</span><span><a class="LN" name="93">   93   </a><span class="CT">         *  DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>'</span>
+</span><span><a class="LN" name="94">   94   </a><span class="CT">         *  Sum: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:92')" name="code2model"><font color="#117755"><i>&lt;S1&gt;/Sum</i></font></a>' *)</span>
+</span><span><a class="LN" name="95">   95   </a>        <span class="CT">(* MATLAB Function 'ADRC/ADRC controller/Linear extended state observer/Linear extended state observer': '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1</i></font></a>' *)</span>
+</span><span><a class="LN" name="96">   96   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:10')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:10</i></font></a>' usedInputGain = evaluateSource(inputGainParameter, externalInputGainParameter); *)</span>
+</span><span><a class="LN" name="97">   97   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:22')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:22</i></font></a>' if(external == 0) *)</span>
+</span><span><a class="LN" name="98">   98   </a>        <span class="KW">IF</span> b = 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="99">   99   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:23')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:23</i></font></a>' output = internal; *)</span>
+</span><span><a class="LN" name="100">  100   </a>            b_controllerBandwidth := 0.005862;
+</span><span><a class="LN" name="101">  101   </a>        <span class="KW">ELSE</span> 
+</span><span><a class="LN" name="102">  102   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:24')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:24</i></font></a>' else *)</span>
+</span><span><a class="LN" name="103">  103   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:25')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:25</i></font></a>' output = external; *)</span>
+</span><span><a class="LN" name="104">  104   </a>            b_controllerBandwidth := b;
+</span><span><a class="LN" name="105">  105   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="106">  106   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:11')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:11</i></font></a>' usedObserverBandwidth = evaluateSource(observerBandwidth, externalObserverBandwidth); *)</span>
+</span><span><a class="LN" name="107">  107   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:22')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:22</i></font></a>' if(external == 0) *)</span>
+</span><span><a class="LN" name="108">  108   </a>        <span class="KW">IF</span> obs_band = 0.0 <span class="KW">THEN</span> 
+</span><span><a class="LN" name="109">  109   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:23')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:23</i></font></a>' output = internal; *)</span>
+</span><span><a class="LN" name="110">  110   </a>            b_observerBandwidth := 3.0;
+</span><span><a class="LN" name="111">  111   </a>        <span class="KW">ELSE</span> 
+</span><span><a class="LN" name="112">  112   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:24')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:24</i></font></a>' else *)</span>
+</span><span><a class="LN" name="113">  113   </a>            <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:25')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:25</i></font></a>' output = external; *)</span>
+</span><span><a class="LN" name="114">  114   </a>            b_observerBandwidth := obs_band;
+</span><span><a class="LN" name="115">  115   </a>        <span class="KW">END_IF</span>;
+</span><span><a class="LN" name="116">  116   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:12')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:12</i></font></a>' A = calculateObserverStateMatrix(dynamicsOrder); *)</span>
+</span><span><a class="LN" name="117">  117   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:13')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:13</i></font></a>' B = calculateObserverInputMatrix(usedInputGain, dynamicsOrder); *)</span>
+</span><span><a class="LN" name="118">  118   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:35')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:35</i></font></a>' observerInputMatrix = [zeros(dynamicsOrder-1,1); -inputGainParameter; 0]; *)</span>
+</span><span><a class="LN" name="119">  119   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:14')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:14</i></font></a>' L = calculateObserverGainVector(usedObserverBandwidth, dynamicsOrder); *)</span>
+</span><span><a class="LN" name="120">  120   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:39')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:39</i></font></a>' extendedGainVector = poly(-observerBandwidth * ones(1, dynamicsOrder+1))'; *)</span>
+</span><span><a class="LN" name="121">  121   </a>        c_idx_2 := b_observerBandwidth * b_observerBandwidth;
+</span><span><a class="LN" name="122">  122   </a>        c_idx_1 := b_observerBandwidth - ( -b_observerBandwidth);
+</span><span><a class="LN" name="123">  123   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:40')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:40</i></font></a>' observerGainVector = extendedGainVector(2:end); *)</span>
+</span><span><a class="LN" name="124">  124   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:16')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:16</i></font></a>' estimatedExtendedStateDerivative = A * previousEstimatedExtendedState +... *)</span>
+</span><span><a class="LN" name="125">  125   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:17')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:17</i></font></a>'         B * controlSignal +... *)</span>
+</span><span><a class="LN" name="126">  126   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27:1:18')" name="code2model"><font color="#117755"><i>&lt;S6&gt;:1:18</i></font></a>'         L * (controlError - previousEstimatedExtendedState(1)); *)</span>
+</span><span><a class="LN" name="127">  127   </a>        b_observerBandwidth := (Ref - fdbck) - c_DiscreteTimeIntegrator_DS[0];
+</span><span><a class="LN" name="128">  128   </a>        <span class="CT">(* Update for DiscreteIntegrator: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:398')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Discrete-Time Integrator</i></font></a>' incorporates:</span>
+</span><span><a class="LN" name="129">  129   </a><span class="CT">         *  MATLAB Function: '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:27')" name="code2model"><font color="#117755"><i>&lt;S3&gt;/Linear extended state observer</i></font></a>' *)</span>
+</span><span><a class="LN" name="130">  130   </a>        <span class="CT">(* MATLAB Function 'ADRC/ADRC controller/Observer output/Only estimated total disturbance/Last element of estimated extended state': '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:254:1')" name="code2model"><font color="#117755"><i>&lt;S8&gt;:1</i></font></a>' *)</span>
+</span><span><a class="LN" name="131">  131   </a>        <span class="CT">(* '<a href="matlab:coder.internal.code2model('porownanie_algorytmow:80:254:1:2')" name="code2model"><font color="#117755"><i>&lt;S8&gt;:1:2</i></font></a>' y = u(end); *)</span>
+</span><span><a class="LN" name="132">  132   </a>        c_DiscreteTimeIntegrator_DS[0] := ((((( -b_controllerBandwidth) * y) + c_DiscreteTimeIntegrator_DS[1]) + (c_idx_1 * b_observerBandwidth)) * 0.02) + c_DiscreteTimeIntegrator_DS[0];
+</span><span><a class="LN" name="133">  133   </a>        c_DiscreteTimeIntegrator_DS[1] := ((c_idx_2 * b_observerBandwidth) * 0.02) + c_DiscreteTimeIntegrator_DS[1];
+</span><span><a class="LN" name="134">  134   </a>        <span class="CT">(* End of Outputs for SubSystem: '&lt;Root&gt;/ADRC' *)</span>
+</span><span><a class="LN" name="135">  135   </a><span class="KW">END_CASE</span>;
+</span><span><a class="LN" name="136">  136   </a><span class="KW">END_FUNCTION_BLOCK</span>
+</span><span><a class="LN" name="137">  137   </a><span class="KW">VAR_GLOBAL</span> <span class="KW">CONSTANT</span>
+</span><span><a class="LN" name="138">  138   </a>    SS_INITIALIZE: <span class="KW">SINT</span> := 0;
+</span><span><a class="LN" name="139">  139   </a>    SS_STEP: <span class="KW">SINT</span> := 1;
+</span><span><a class="LN" name="140">  140   </a><span class="KW">END_VAR</span>
+</span><span><a class="LN" name="141">  141   </a>
+</span></pre>
+</td></tr></table>
+</p>
+</body>
+</html>
